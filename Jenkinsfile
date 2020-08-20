@@ -29,6 +29,7 @@ pipeline {
         archiveArtifacts '**/target/*.jar'
       }
     }
-
-
+  }//stages
+}//pipeline
+ 
 
