@@ -27,5 +27,9 @@ pipeline {
       }
     }
 
-  }
+  }//stages
+    tools {
+    maven 'Maven3.6.3'
+  } //tools
+ 
 }
