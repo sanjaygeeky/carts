@@ -1,4 +1,3 @@
-//Carts Jenkins Pipeline
 pipeline {
   agent any
   stages {
@@ -9,13 +8,11 @@ pipeline {
       }
     }
 
-
     stage('Test') {
       steps {
         sh 'mvn test'
       }
     }
-
 
     stage('Package') {
       steps {
@@ -29,7 +26,6 @@ pipeline {
         archiveArtifacts '**/target/*.jar'
       }
     }
-  }//stages
-}//pipeline
- 
 
+  }
+}
