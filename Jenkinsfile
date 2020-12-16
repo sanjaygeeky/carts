@@ -29,9 +29,10 @@ pipeline {
   tools {
     maven 'maven363'
   }
-  environment {
+ /* environment {
     mvn = 'maven363'
-  }
+  }*/
+  
   post {
     always {
       echo 'this pipeline has completed...'
