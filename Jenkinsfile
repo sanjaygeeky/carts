@@ -27,7 +27,7 @@ pipeline {
     }
 
   }
-  environment {
+  tools {
     maven 'maven363'
   }
   post {
