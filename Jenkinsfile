@@ -1,57 +1,34 @@
-pipeline {
-  agent none
-  stages {
-    stage('Build') {
-      agent {
-        docker {
-          image 'schoolofdevops/carts-maven'
-        }
+pipeline{
 
-      }
-      steps {
-        sh 'mvn clean compile'
-      }
+    agent any
+
+// uncomment the following lines by removing /* and */ to enable
+    tools{
+       maven 'maven363' 
     }
+   
 
-    stage('Validate') {
-      agent {
-        docker {
-          image 'schoolofdevops/carts-maven'
+    stages{
+        stage('Build'){
+            steps{
+                echo 'this is the Build  job'
+                sh 'mvn clean compile'
+                 }
         }
-
-      }
-      steps {
-        sh 'mvn clean test'
-      }
-    }
-
-    stage('Package') {
-      agent {
-        docker {
-          image 'schoolofdevops/carts-maven'
+        stage('Test'){
+            steps{
+                echo 'this is the Test job'
+                sh 'mvn clean test'
+                }
         }
-
-      }
-      steps {
-        sh 'mvn clean package -DskipTests'
-      }
-    }
-
-    stage('Pblish') {
-      steps {
-        script {
-          docker.withRegistry('https://index.docker.io/v1/', 'dockerlogin') {
-            def dockerImage = docker.build("sanjaygeeky/cartsdocker:v${env.BUILD_ID}", "./")
-            dockerImage.push()
-            dockerImage.push("latest")
-          }
+        stage('Package'){
+            steps{
+                echo 'this is the Package job'
+                sh 'mvn package -DskipTests'
+                 }
         }
-
-      }
     }
-
-  }
-  tools {
-    maven 'maven363'
-  }
+    
+    
 }
+
