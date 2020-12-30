@@ -1,34 +1,35 @@
-pipeline{
-
-    agent any
-
-// uncomment the following lines by removing /* and */ to enable
-    tools{
-       maven 'maven363' 
+pipeline {
+  agent any
+  stages {
+    stage('Build') {
+      steps {
+        echo 'this is the Build  job'
+        sh 'mvn clean compile'
+      }
     }
-   
 
-    stages{
-        stage('Build'){
-            steps{
-                echo 'this is the Build  job'
-                sh 'mvn clean compile'
-                 }
-        }
-        stage('Test'){
-            steps{
-                echo 'this is the Test job'
-                sh 'mvn clean test'
-                }
-        }
-        stage('Package'){
-            steps{
-                echo 'this is the Package job'
-                sh 'mvn package -DskipTests'
-                 }
-        }
+    stage('Test') {
+      steps {
+        echo 'this is the Test job'
+        sh 'mvn clean test'
+      }
     }
-    
-    
+
+    stage('Package') {
+      steps {
+        echo 'this is the Package job'
+        sh 'mvn package -DskipTests'
+      }
+    }
+
+    stage('Archive') {
+      steps {
+        archiveArtifacts(artifacts: '**target/*.jar', allowEmptyArchive: true)
+      }
+    }
+
+  }
+  tools {
+    maven 'maven363'
+  }
 }
-
