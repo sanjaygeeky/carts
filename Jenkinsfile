@@ -55,7 +55,8 @@ pipeline {
     }
 
   }
-  tools {
+/*  tools {
     maven 'maven363'
   }
+*/
 }
